@@ -1,6 +1,8 @@
 plugins {
     kotlin("jvm") version "1.9.10"
-    application
+    kotlin("plugin.spring") version "1.9.10"
+    id("org.springframework.boot") version "3.1.1"
+    id("io.spring.dependency-management") version "1.1.0"
 }
 
 repositories {
@@ -12,16 +14,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 kotlin {
-    jvmToolchain(21) // Or use 17, depending on your Java target
-}
-
-application {
-    mainClass.set("com.example.todolist.ApplicationKt")
+    jvmToolchain(17)
 }
 
 tasks.withType<JavaCompile> {
-    options.release.set(21) // Or use 17, depending on your Java target
+    options.release.set(17)
 }

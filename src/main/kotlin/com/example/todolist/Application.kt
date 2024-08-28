@@ -2,10 +2,12 @@ package com.example.todolist
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories
 
 @SpringBootApplication
-class TodoListApplication
+@EnableMongoRepositories
+class Application
 
 fun main(args: Array<String>) {
-    runApplication<TodoListApplication>(*args)
+    runApplication<Application>(*args)
 }
