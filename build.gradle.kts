@@ -8,22 +8,20 @@ repositories {
 }
 
 dependencies {
-    implementation("io.ktor:ktor-server-core:2.3.0")
-    implementation("io.ktor:ktor-server-netty:2.3.0")
-    implementation("io.ktor:ktor-serialization-jackson:2.3.0")
-    implementation("io.ktor:ktor-server-cors:2.3.0")
-    implementation("org.litote.kmongo:kmongo-coroutine:4.7.2")
-    implementation("org.litote.kmongo:kmongo-reactor:4.7.2") // Add this if you need reactive features
-    implementation("ch.qos.logback:logback-classic:1.4.12")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
-
 kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(17)) // Or 11, 8, depending on your JDK
-    }
+    jvmToolchain(21) // Or use 17, depending on your Java target
 }
 
 application {
-    mainClass.set("MainKt")
+    mainClass.set("com.example.todolist.ApplicationKt")
+}
+
+tasks.withType<JavaCompile> {
+    options.release.set(21) // Or use 17, depending on your Java target
 }
