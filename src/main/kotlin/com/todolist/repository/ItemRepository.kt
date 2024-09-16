@@ -1,6 +1,6 @@
-package com.example.todolist.repository
+package com.todolist.repository
 
-import com.example.todolist.model.Item
+import com.todolist.model.Item
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
 

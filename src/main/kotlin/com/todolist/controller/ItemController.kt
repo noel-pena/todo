@@ -1,7 +1,7 @@
-package com.example.todolist.controller
+package com.todolist.controller
 
-import com.example.todolist.model.Item
-import com.example.todolist.repository.ItemRepository
+import com.todolist.model.Item
+import com.todolist.repository.ItemRepository
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
