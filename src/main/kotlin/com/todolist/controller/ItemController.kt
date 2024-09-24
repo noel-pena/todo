@@ -2,6 +2,7 @@ package com.todolist.controller
 
 import com.todolist.model.Item
 import com.todolist.repository.ItemRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin(origins = ["http://localhost:5173"])
 @RestController
 @RequestMapping("/api/items")
-class ItemController(private val itemRepository: ItemRepository) {
+class ItemController(@Autowired val itemRepository: ItemRepository) {
 
     @GetMapping
     fun getAllItems(): List<Item> = itemRepository.findAll()
