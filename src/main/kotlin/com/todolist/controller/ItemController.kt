@@ -15,7 +15,7 @@ class ItemController(@Autowired val itemRepository: ItemRepository) {
     @GetMapping
     fun getAllItems(): List<Item> = itemRepository.findAll()
 
-    @PostMapping("/api/add")
+    @PostMapping("/add")
     fun addItem(@RequestBody newItem: Map<String, String>): ResponseEntity<Item> {
         val itemTitle = newItem["newItem"]
         return if (itemTitle != null) {
@@ -26,12 +26,14 @@ class ItemController(@Autowired val itemRepository: ItemRepository) {
         }
     }
 
-    @DeleteMapping("/api/items/{id}")
+    @DeleteMapping("/{id}")
     fun deleteItem(@PathVariable id: String): ResponseEntity<Map<String, String>> {
         return if (itemRepository.existsById(id)) {
             itemRepository.deleteById(id)
+            println("item with id: $id, deleted successfully")
             ResponseEntity(mapOf("message" to "Item deleted successfully"), HttpStatus.OK)
         } else {
+            println("item with id: $id, delete failed")
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }
