@@ -1,7 +1,7 @@
 package com.todolist.controller
 
 import com.todolist.model.Item
-import com.todolist.repository.ItemRepository
+import com.todolist.service.ItemService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -9,31 +9,31 @@ import org.springframework.web.bind.annotation.*
 
 @CrossOrigin(origins = ["http://localhost:5173"])
 @RestController
-@RequestMapping("/api/items")
-class ItemController(@Autowired val itemRepository: ItemRepository) {
+@RequestMapping("/api")
+class ItemController(@Autowired val itemService: ItemService) {
 
-    @GetMapping
-    fun getAllItems(): List<Item> = itemRepository.findAll()
+    @GetMapping("/{type}/items")
+    fun getAllItems(@PathVariable type: String): ResponseEntity<List<Item>> {
+        val items = itemService.getAllItems(type)
+        return ResponseEntity(items, HttpStatus.OK)
+    }
 
-    @PostMapping("/add")
-    fun addItem(@RequestBody newItem: Map<String, String>): ResponseEntity<Item> {
+    @PostMapping("/{type}/items")
+    fun addItem(@RequestBody newItem: Map<String, String>, @PathVariable type: String): ResponseEntity<Item> {
         val itemTitle = newItem["newItem"]
         return if (itemTitle != null) {
-            val item = itemRepository.save(Item(title = itemTitle))
+            val item = itemService.addItem(Item(title = itemTitle), type)
             ResponseEntity(item, HttpStatus.CREATED)
         } else {
             ResponseEntity(HttpStatus.BAD_REQUEST)
         }
     }
 
-    @DeleteMapping("/{id}")
-    fun deleteItem(@PathVariable id: String): ResponseEntity<Map<String, String>> {
-        return if (itemRepository.existsById(id)) {
-            itemRepository.deleteById(id)
-            println("item with id: $id, deleted successfully")
+    @DeleteMapping("/{type}/items/{id}")
+    fun deleteItem(@PathVariable id: String, @PathVariable type: String): ResponseEntity<Map<String, String>> {
+        return if (itemService.deleteItem(id, type)) {
             ResponseEntity(mapOf("message" to "Item deleted successfully"), HttpStatus.OK)
         } else {
-            println("item with id: $id, delete failed")
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }
