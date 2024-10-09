@@ -1,19 +1,18 @@
 import axios from 'axios';
 import React, { useState, FormEvent } from 'react';
-import { InputGroup, InputBox, SubmitButton } from '../theme/styles.ts'; // Using the styled components
+import { InputGroup, InputBox, SubmitButton } from '../theme/styles.ts';
 
-interface AddItemProps {
+interface AddItemProp {
     getRequest: string;
 }
 
-export const AddItem: React.FC<AddItemProps> = ({ getRequest }) => {
+export const AddItem: React.FC<AddItemProp> = ({ getRequest }) => {
     const [newItem, setNewItem] = useState('');
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log({newItem})
         try {
-            await axios.post(`http://localhost:8080/api/${getRequest}`, { newItem });
+            await axios.post(`/api/${getRequest}`, { newItem });
             window.location.reload();
         } catch (error) {
             console.log('Error adding item:', error);
@@ -34,9 +33,14 @@ export const AddItem: React.FC<AddItemProps> = ({ getRequest }) => {
                 placeholder="Type here"
                 value={newItem}
                 onChange={(e) => setNewItem(e.target.value)}
+                onKeyDown={async (e) => {
+                    if (e.key === 'Enter' && hasLetters) {
+                        await handleSubmit(e);
+                    }
+                }}
             />
             {hasLetters && (
-                <SubmitButton type="submit">Add</SubmitButton>
+                <SubmitButton type="submit">Submit</SubmitButton>
             )}
         </InputGroup>
     );

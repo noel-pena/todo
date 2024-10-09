@@ -91,7 +91,6 @@ export const ItemRow = styled(Box)(() => ({
     display: 'flex',
     alignItems: 'center',
     width: '100%',
-    marginBottom: '10px',
 }));
 
 export const CheckboxLabel = styled('label')(() => ({

@@ -17,15 +17,14 @@ export const Items: React.FC<ItemsProps> = ({ getRequest }) => {
     const [items, setItems] = useState<Item[]>([]);
 
     useEffect(() => {
-        const fetchData = async () => {
+        (async () => {
             try {
                 const response = await axios.get(`/api/${getRequest}`);
                 setItems(response.data);
             } catch (error) {
                 console.error("Error fetching items:", error);
             }
-        };
-        fetchData();
+        })();
     }, [getRequest]);
 
     const handleCheckboxChange = async (itemId: string) => {
@@ -51,8 +50,8 @@ export const Items: React.FC<ItemsProps> = ({ getRequest }) => {
                                     <CheckboxLabel>
                                         <Checkbox
                                             size="small"
-                                            onChange={() => {
-                                                handleCheckboxChange(item.id);
+                                            onChange={async () => {
+                                                await handleCheckboxChange(item.id);
                                             }}
                                             sx={{
                                                 color: theme.palette.secondary.main,
