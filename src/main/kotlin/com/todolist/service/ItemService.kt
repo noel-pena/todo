@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service
 
 @Service
 class ItemService(@Autowired private val mongoTemplate: MongoTemplate) {
-
-    // Determine the collection name based on the item type
     private fun getCollectionName(type: String): String {
         return when (type.lowercase()) {
             "today" -> "items_todays"

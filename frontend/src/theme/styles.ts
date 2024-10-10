@@ -77,13 +77,13 @@ export const ItemBox = styled(Box)(() => ({
     height: '75px',
     width: '100%',
     textAlign: 'left',
-    borderBottom: '1px solid rgba(90, 90, 90, 0.48)', // Default border for all items
+    borderBottom: '1px solid rgba(90, 90, 90, 0.48)',
     color: '#dadada',
     display: 'flex',
     alignItems: 'center',
     transition: 'max-height ease 0.3s',
     '&:last-child': {
-        borderBottom: 'none', // Remove border for the last item
+        borderBottom: 'none',
     },
 }));
 
