@@ -22,8 +22,6 @@ export const AddItem: React.FC<AddItemProp> = ({ getRequest }) => {
     const hasLetters = /[a-zA-Z]/.test(newItem);
 
     return (
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
         <InputGroup component="form" onSubmit={handleSubmit}>
             <InputBox
                 type="text"
@@ -34,9 +32,7 @@ export const AddItem: React.FC<AddItemProp> = ({ getRequest }) => {
                 value={newItem}
                 onChange={(e) => setNewItem(e.target.value)}
                 onKeyDown={async (e) => {
-                    if (e.key === 'Enter' && hasLetters) {
-                        await handleSubmit(e);
-                    }
+                    (e.key === 'Enter' && hasLetters) && await handleSubmit(e);
                 }}
             />
             {hasLetters && (
